@@ -18,8 +18,16 @@ struct ContentView: View {
     //@Binding var entered_entry: String
     
     var body: some View {
-        
         VStack {
+            Spacer().frame(height: 100)
+            
+            Text("\(words[displayIndex])")
+                .font(.system(size: 48))
+                .lineLimit(1)
+                .minimumScaleFactor(0.5)
+            
+            Spacer().frame(height: 400)
+            
             Button(action: {
                 self.pauseTapped()
             }) {
@@ -35,6 +43,8 @@ struct ContentView: View {
             .cornerRadius(40)
             .foregroundColor(.white)
             
+            Spacer().frame(height: 50)
+            
             Slider(
                 value: $speed,
                 in: -20...20,
@@ -42,7 +52,8 @@ struct ContentView: View {
                     isEditing = editing
                 }
             )
-            Text("\(words[displayIndex])")
+            
+            Spacer().frame(height: 100)
         }.onAppear {
             // Run a background task with a delay when the view appears
             var sleepTime = 1000000
