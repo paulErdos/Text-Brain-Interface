@@ -13,6 +13,7 @@ struct ContentView: View {
     @State var isEditing = false
     @State private var displayIndex = 0
     @State private var isPaused = false
+    @State private var buttonMessage = "Go!"
     //@Binding var text: String
     //@Binding var entered_entry: String
     
@@ -22,13 +23,18 @@ struct ContentView: View {
             Button(action: {
                 self.pauseTapped()
             }) {
-                Text("Pause / Play")
-                    .font(.title)
-                    .frame(width: 200, height: 80)
-                    .background(Color.blue)
-                    .cornerRadius(40)
-                    .foregroundColor(.white)
+                if isPaused {
+                    Image(systemName: "play.circle.fill")
+                } else {
+                    Image(systemName: "pause.circle.fill")
+                }
             }
+            .font(.title)
+            .frame(width: 80, height: 80)
+            .background(Color.blue)
+            .cornerRadius(40)
+            .foregroundColor(.white)
+            
             Slider(
                 value: $speed,
                 in: -20...20,
@@ -68,10 +74,7 @@ struct ContentView: View {
     }
     
     private func pauseTapped() {
-        isPaused = isPaused ? false : true
-        // Perform action when enter key is tapped
-        //entered_entry = text // Store
-        //text = ""  // Reset
+        isPaused.toggle()
     }
 }
 
