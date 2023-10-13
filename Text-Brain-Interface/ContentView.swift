@@ -9,7 +9,7 @@ import SwiftUI
 
 
 struct ContentView: View {
-    @State var speed = 1.0
+    @State var speed = 0.0
     @State var isEditing = false
     @State private var displayIndex = 0
     @State private var isPaused = true
@@ -46,12 +46,22 @@ struct ContentView: View {
             Spacer().frame(height: 50)
             
             Slider(
-                value: $speed,
+                value: Binding(
+                    get: {
+                        return self.speed
+                    },
+                    set: { newValue in
+                        if (((-20)...(-1)).contains(newValue) || (1...20).contains(newValue) || newValue == 0) {
+                            self.speed = newValue
+                        }
+                    }
+                ),
                 in: -20...20,
                 onEditingChanged: { editing in
                     isEditing = editing
                 }
             )
+
             
             Spacer().frame(height: 100)
         }.onAppear {
