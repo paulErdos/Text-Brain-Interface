@@ -8,13 +8,13 @@
 import SwiftUI
 
 
-struct ContentView: View {
+struct ReadingView: View {
     @State var speed = 0.0
     @State var isEditing = false
     @State private var displayIndex = 0
     @State private var isPaused = true
     @State private var buttonMessage = "Go!"
-    //@Binding var text: String
+    @Binding var words: [String]
     //@Binding var entered_entry: String
     
     var body: some View {
@@ -95,9 +95,10 @@ struct ContentView: View {
 }
 
 
-
-struct ContentView_Previews: PreviewProvider {
+/*
+struct ReadingView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        ReadingView(words: hhgg)
     }
 }
+*/
