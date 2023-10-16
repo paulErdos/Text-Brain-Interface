@@ -11,7 +11,7 @@ import SwiftUI
 struct Text_Brain_InterfaceApp: App {
     var body: some Scene {
         WindowGroup {
-            MainMenu(book: hhgg)
+            MainMenu()
         }
     }
 }

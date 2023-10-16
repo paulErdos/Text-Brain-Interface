@@ -11,13 +11,17 @@ import Foundation
 struct BookSelectionView: View {
     // The selected book
     @Binding var book: [String]
+    @State var selectedBookName: String = ""
     
     var body: some View {
-        Picker("Select a book", selection: $book) {
-            ForEach(TheBooks.keys.sorted(), id: \.self) { bookName in
-                Text(bookName)
-            }
-        }.pickerStyle(.wheel)
+        List {
+            Picker("Select a book", selection: $selectedBookName) {
+                ForEach(TheBooks.keys.sorted(), id: \.self) { bookName in
+                    Text(bookName).tag(TheBooks[bookName])
+                }
+            }.pickerStyle(.inline)
+            Text("Selected book: \(selectedBookName)")
+        }
     }
 }
 

@@ -6,25 +6,30 @@
 //
 
 import SwiftUI
-
+import Combine
 
 struct MainMenu: View {
     // The selected book
-    @State var book: [String]
+    @State var selectedBook: [String] = talesofspaceandtime
+    @State var selectedBookName: String = "Tales of Space and Time"
     
     var body: some View {
         NavigationView {
             List {
-                NavigationLink(destination: BookSelectionView(book: $book)) {
-                    Label("Choose A Book", systemImage: "books.vertical")
-                        .font(.headline)
-                        .foregroundColor(.accentColor)
+                Picker("Select a book", selection: $selectedBookName) {
+                    ForEach(TheBooks.keys.sorted(), id: \.self) { bookName in
+                        Text(bookName).tag(TheBooks[bookName])
+                    }
                 }
-                NavigationLink(destination: ReadingView(words: $book)) {
+                .onReceive(Just(selectedBookName)) { key in
+                    selectedBook = TheBooks[key] ?? talesofspaceandtime
+                }
+                .pickerStyle(.inline)
+                NavigationLink(destination: ReadingView(words: $selectedBook)) {
                     Label("Read", systemImage: "book")
                         .font(.headline)
                         .foregroundColor(.accentColor)
-                }
+                }//.disabled(selectedBookName == "")
             }
             .navigationTitle("Text-Brain Interface")
         }
