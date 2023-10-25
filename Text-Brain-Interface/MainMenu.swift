@@ -25,6 +25,8 @@ struct MainMenu: View {
                     selectedBook = TheBooks[key] ?? talesofspaceandtime
                 }
                 .pickerStyle(.inline)
+                // TODO: Add "Add your own text" view. Persist added text. 
+                //NavigationLink(destination: )
                 NavigationLink(destination: ReadingView(words: $selectedBook)) {
                     Label("Read", systemImage: "book")
                         .font(.headline)

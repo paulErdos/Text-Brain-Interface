@@ -1,0 +1,9 @@
+replace 
+
+Ensure no blank lines at beginning.
+To the beginning of the first line, add ["
+Ensure no blank lines at the end.
+To the end of the last line, add "]
+Replace all spaces and newlines with ", "
+Replace - with -", "
+Replace — (em-dash) with ", "—", "
