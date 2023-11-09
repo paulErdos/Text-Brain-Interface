@@ -10,28 +10,27 @@ import Combine
 
 struct MainMenu: View {
     // The selected book
-    @State var selectedBook: [String] = talesofspaceandtime
-    @State var selectedBookName: String = "Tales of Space and Time"
+    //@State var selectedBook: [String] = talesofspaceandtime
+    @State var selectedTitle: String = "Tales of Space and Time"
     
     var body: some View {
         NavigationView {
             List {
-                Picker("Select a book", selection: $selectedBookName) {
+                Picker("Select a book", selection: $selectedTitle) {
                     ForEach(TheBooks.keys.sorted(), id: \.self) { bookName in
-                        Text(bookName).tag(TheBooks[bookName])
+                        Text(bookName)//.tag(TheBooks[bookName])
                     }
                 }
-                .onReceive(Just(selectedBookName)) { key in
+                /*.onReceive(Just(selectedTitle)) { key in
                     selectedBook = TheBooks[key] ?? talesofspaceandtime
                 }
-                .pickerStyle(.inline)
-                // TODO: Add "Add your own text" view. Persist added text. 
-                //NavigationLink(destination: )
-                NavigationLink(destination: ReadingView(words: $selectedBook)) {
+                */.pickerStyle(.inline)
+                
+                NavigationLink(destination: ReadingView(title: $selectedTitle)) {
                     Label("Read", systemImage: "book")
                         .font(.headline)
                         .foregroundColor(.accentColor)
-                }//.disabled(selectedBookName == "")
+                }
             }
             .navigationTitle("Text-Brain Interface")
         }

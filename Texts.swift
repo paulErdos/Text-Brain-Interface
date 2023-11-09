@@ -36,8 +36,8 @@ func readBookTextData(from name: String) -> [String] {
     }
 }
 
-
-let TheBooks: [String: [String]] = [
-    "The Hitchhiker's Guide to the Galaxy": hhgg,
-    "Tales of Space and Time": readBookTextData(from: "CrystalEgg")
+// TODO: Consider making a book its own type
+var TheBooks: [String: ([String], Int)] = [
+    "The Hitchhiker's Guide to the Galaxy": (hhgg as [String], 0),
+    "Tales of Space and Time": (readBookTextData(from: "CrystalEgg") as [String], 0)
 ]

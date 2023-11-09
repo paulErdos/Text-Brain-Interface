@@ -17,7 +17,7 @@ struct BookSelectionView: View {
         List {
             Picker("Select a book", selection: $selectedBookName) {
                 ForEach(TheBooks.keys.sorted(), id: \.self) { bookName in
-                    Text(bookName).tag(TheBooks[bookName])
+                    Text(bookName)//.tag(TheBooks[bookName])
                 }
             }.pickerStyle(.inline)
             Text("Selected book: \(selectedBookName)")

@@ -11,23 +11,19 @@ import SwiftUI
 struct ReadingView: View {
     @State var speed = 0.0
     @State var isEditing = false
-    @State private var displayIndex = 0
     @State private var isPaused = true
-    @State private var buttonMessage = "Go!"
-    @Binding var words: [String]
-    //@Binding var entered_entry: String
-    
+    @Binding var title: String
+
     var body: some View {
         VStack {
             Spacer().frame(height: 100)
             
-            Text("\(words[displayIndex])")
+            Text("\(TheBooks[title]!.0[TheBooks[title]!.1])")
                 .font(.system(size: 48))
                 .lineLimit(1)
                 .minimumScaleFactor(0.5)
             
             Spacer().frame(height: 400)
-            
             Button(action: {
                 self.pauseTapped()
             }) {
@@ -42,7 +38,6 @@ struct ReadingView: View {
             .background(Color.blue)
             .cornerRadius(40)
             .foregroundColor(.white)
-            
             Spacer().frame(height: 50)
             
             Slider(
@@ -62,11 +57,13 @@ struct ReadingView: View {
                 }
             )
 
-            
             Spacer().frame(height: 100)
         }.onAppear {
             // Run a background task with a delay when the view appears
             var sleepTime = 1000000
+            var words = TheBooks[title]!.0
+            var displayIndex = TheBooks[title]!.1
+            
             DispatchQueue.global().async {
                 while true {
                     // Wait until unpause
@@ -75,10 +72,10 @@ struct ReadingView: View {
                     }
                     
                     // Once unpaused, advance word
-                    if speed > 0.0 && self.displayIndex < words.count - 1 {
-                        self.displayIndex += 1
-                    } else if speed < 0  && self.displayIndex > 0 {
-                        self.displayIndex -= 1
+                    if speed > 0.0 && displayIndex < words.count - 1 {
+                        displayIndex += 1
+                    } else if speed < 0  && displayIndex > 0 {
+                        displayIndex -= 1
                     }
                     
                     // Before cycling again, wait a period of time set by the slider
@@ -86,6 +83,9 @@ struct ReadingView: View {
                     usleep(useconds_t(sleepTime))
                 }
             }
+        }.onDisappear {
+            // Is this when we leave?
+            
         }
     }
     
@@ -93,12 +93,3 @@ struct ReadingView: View {
         isPaused.toggle()
     }
 }
-
-
-/*
-struct ReadingView_Previews: PreviewProvider {
-    static var previews: some View {
-        ReadingView(words: hhgg)
-    }
-}
-*/
