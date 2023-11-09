@@ -27,7 +27,9 @@ struct MainMenu: View {
                 .pickerStyle(.inline)
                 // TODO: Add "Add your own text" view. Persist added text. 
                 //NavigationLink(destination: )
-                NavigationLink(destination: ReadingView(words: $selectedBook)) {
+                NavigationLink(destination: ReadingView(words: $selectedBook,
+                                                       displayIndex: SavedSpots[selectedBookName]!,
+                                                        title: selectedBookName)) {
                     Label("Read", systemImage: "book")
                         .font(.headline)
                         .foregroundColor(.accentColor)

@@ -11,10 +11,11 @@ import SwiftUI
 struct ReadingView: View {
     @State var speed = 0.0
     @State var isEditing = false
-    @State private var displayIndex = 0
     @State private var isPaused = true
     @State private var buttonMessage = "Go!"
     @Binding var words: [String]
+    @State var displayIndex: Int
+    @State var title: String
     //@Binding var entered_entry: String
     
     var body: some View {
@@ -86,6 +87,8 @@ struct ReadingView: View {
                     usleep(useconds_t(sleepTime))
                 }
             }
+        }.onDisappear {
+            SavedSpots[title] = displayIndex
         }
     }
     

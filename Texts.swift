@@ -41,3 +41,8 @@ let TheBooks: [String: [String]] = [
     "The Hitchhiker's Guide to the Galaxy": hhgg,
     "Tales of Space and Time": readBookTextData(from: "CrystalEgg")
 ]
+
+var SavedSpots: [String: Int] = [
+    "The Hitchhiker's Guide to the Galaxy": 0,
+    "Tales of Space and Time": 0
+]
