@@ -46,3 +46,38 @@ var SavedSpots: [String: Int] = [
     "The Hitchhiker's Guide to the Galaxy": 0,
     "Tales of Space and Time": 0
 ]
+
+struct SavedSpot: Codable {
+    let name: String
+    let spot: Int
+    
+    init(name: String, spot: Int) {
+        self.name = name
+        self.spot = spot
+    }
+}
+
+class SpotStore: ObservableObject {
+    var spots: [SavedSpot] = []
+    
+    private static func fileURL() throws -> URL {
+        try FileManager.default.url(for: .documentDirectory,
+                                    in: .userDomainMask,
+                                    appropriateFor: nil,
+                                    create: false)
+        .appendingPathComponent("SavedSpots.data")
+    }
+    
+    func load() async throws {
+        let task = Task<[SavedSpot], Error> {
+            let fileURL = try SpotStore.fileURL()
+            guard let data = try? Data(contentsOf: fileURL) else {
+                return []
+            }
+            let savedSpots = try JSONDecoder().decode([SavedSpot].self, from: data)
+            return savedSpots
+        }
+        let spots = try await task.value
+        self.spots = spots
+    }
+}
