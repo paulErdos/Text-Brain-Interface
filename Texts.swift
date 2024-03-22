@@ -80,4 +80,14 @@ class SpotStore: ObservableObject {
         let spots = try await task.value
         self.spots = spots
     }
+    
+    func save(spots: [SavedSpot]) async throws {
+        let task = Task {
+            let data = try JSONEncoder().encode(spots)
+            let outfile = try SpotStore.fileURL()
+            try data.write(to: outfile)
+        }
+        
+        _ = try await task.value
+    }
 }

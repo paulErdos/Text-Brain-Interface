@@ -29,20 +29,45 @@ struct ReadingView: View {
             
             Spacer().frame(height: 400)
             
-            Button(action: {
-                self.pauseTapped()
-            }) {
-                if isPaused {
-                    Image(systemName: "play.circle.fill")
-                } else {
-                    Image(systemName: "pause.circle.fill")
+            HStack {
+                Button(action: {
+                    self.backTapped()
+                }) {
+                    Image(systemName: "arrowshape.left.fill")
                 }
+                .font(.title)
+                .frame(width: 80, height: 80)
+                .background(Color.blue)
+                .cornerRadius(40)
+                .foregroundColor(.white)
+                
+                Button(action: {
+                    self.pauseTapped()
+                }) {
+                    if isPaused {
+                        Image(systemName: "play.circle.fill")
+                    } else {
+                        Image(systemName: "pause.circle.fill")
+                    }
+                }
+                .font(.title)
+                .frame(width: 80, height: 80)
+                .background(Color.blue)
+                .cornerRadius(40)
+                .foregroundColor(.white)
+                
+                Button(action: {
+                    self.forewardTapped()
+                }) {
+                    Image(systemName: "arrowshape.right.fill")
+                }
+                .font(.title)
+                .frame(width: 80, height: 80)
+                .background(Color.blue)
+                .cornerRadius(40)
+                .foregroundColor(.white)
             }
-            .font(.title)
-            .frame(width: 80, height: 80)
-            .background(Color.blue)
-            .cornerRadius(40)
-            .foregroundColor(.white)
+
             
             Spacer().frame(height: 50)
             
@@ -94,6 +119,14 @@ struct ReadingView: View {
     
     private func pauseTapped() {
         isPaused.toggle()
+    }
+    
+    private func backTapped() {
+        self.displayIndex-=15
+    }
+    
+    private func forewardTapped() {
+        self.displayIndex+=15
     }
 }
 
